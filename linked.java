@@ -22,7 +22,7 @@ public class SinglyLinkedList {
 
      
 
-    //Represent the head and tail of the SLL 
+    //Represent the head and tail of SLL 
 
     public Node head = null;    
 
@@ -80,13 +80,13 @@ public class SinglyLinkedList {
 
         if(head == null) {    
 
-            System.out.println("List is empty!");    
+            System.out.println("The List is empty!");    
 
             return;    
 
         }    
 
-        System.out.println("Nodes of SLL=");    
+        System.out.println("Nodes of SLL is:");    
 
         while(current != null) {    
 
