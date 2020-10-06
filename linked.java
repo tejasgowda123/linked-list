@@ -1,133 +1,147 @@
-public class SinglyLinkedList {    
 
-    //Represent a node of the SLL
+import java.io.*;
+import java.util.*;
 
-    class Node{    
+class Reader {
+    static BufferedReader reader;
+    static StringTokenizer tokenizer;
 
-        int data;    
 
-        Node next;    
 
-            
+    static void init(InputStream input) {
+        reader = new BufferedReader(
+                     new InputStreamReader(input) );
+        tokenizer = new StringTokenizer("");
+    }
 
-        public Node(int data) {    
 
-            this.data = data;    
+    static String next() throws IOException {
+        while ( ! tokenizer.hasMoreTokens() ) {
 
-            this.next = null;    
 
-        }    
+            tokenizer = new StringTokenizer(
+                   reader.readLine() );
+        }
+        return tokenizer.nextToken();
+    }
 
-    }    
+    static int nextInt() throws IOException {
 
-     
+    	return Integer.parseInt( next() );
+    }
+	
+    static double nextDouble() throws IOException {
+        return Double.parseDouble( next() );
+    }
+}
 
-    //Represent the head and tail of SLL 
 
-    public Node head = null;    
 
-    public Node tail = null;    
 
+class Node
+{
+    int data;
+    Node nextNode, prevNode;
+ 
+    public Node()
+    {
+    	prevNode = null;
+        nextNode = null;
+        data = 0;
+    }
+    
+    public Node(int data, Node nextNode, Node prevNode)
+    {
+        this.data = data;
+        this.nextNode = nextNode;
+        this.prevNode = prevNode;
+    }
+   
+
+}
+ 
+public class DoublyLinkedList
+{
+    Node headNode;
+    Node tailNode ;
+    public int len;
+
+    public DoublyLinkedList()
+    {
+        headNode = null;
+        tailNode = null;
+        len = 0;
+    }
+    
+    public void insertAtStart(int data)
+    {
+        Node currentNode = new Node();
+        currentNode.data = data;
+        currentNode.nextNode = null;
+        currentNode.prevNode = null;
         
+        if(headNode == null)
+        {
+            headNode = currentNode;
+            tailNode = headNode;
+        }
+        else
+        {
+            headNode.prevNode = currentNode;
+            currentNode.nextNode = headNode;
+            headNode = currentNode;
+        }
+        len++;
+    }
 
-    //addNode() will add a new node to the SLL  
+    public void insertAtRear(int data)
+    {
+    	Node currentNode = new Node();
+        currentNode.data = data;
+        currentNode.nextNode = null;
+        currentNode.prevNode = null;        
+        if(headNode == null)
+        {
+            headNode = currentNode;
+            tailNode = headNode;
+        }
+        else
+        {
+            currentNode.prevNode = tailNode;
+            tailNode.nextNode = currentNode;
+            tailNode = currentNode;
+        }
+        len++;
+    }
+ 
+    public static void main(String[] args) throws IOException {
+    	DoublyLinkedList doubll = new DoublyLinkedList();
+		Reader.init(System.in);
+		int lsize = Reader.nextInt();
+		for(int test1=0;test1<lsize;test1++) {
+			doubll.insertAtRear(Reader.nextInt());
+		}
+		
+		Node p1 = doubll.headNode;
+		Node p2 = doubll.tailNode;
+		
+		if(doubll.len==1) {
+			System.out.print(p1.data);
+		}
+		else {
+			for (int i = 0; i<=(lsize - 1)/2; i++){
+			  System.out.println(p1.data);
+			  System.out.println(p2.data);
+	
+			  p1 = p1.nextNode;
+			  p2 = p2.prevNode;
+	
+			  if (p1 == p2){
+			    System.out.println(p1.data);
+			    break;
+			  }
+			}
+		}
 
-    public void addNode(int data) {    
-
-        //Create a new node    
-
-        Node newNode = new Node(data);    
-
-            
-
-        //Checks if the SLL is empty    
-
-        if(head == null) {    
-
-            //If SLL is empty, both head and tail will point to new node    
-
-            head = newNode;    
-
-            tail = newNode;    
-
-        }    
-
-        else {    
-
-            //newNode will be added after tail such that tail's next will point to newNode    
-
-            tail.next = newNode;    
-
-            //newNode will become new tail of the SLL
-
-            tail = newNode;    
-
-        }    
-
-    }    
-
-        
-
-    //display() will display all the nodes present in the SLL   
-
-    public void display() {    
-
-        //Node current will point to head    
-
-        Node current = head;    
-
-            
-
-        if(head == null) {    
-
-            System.out.println("The List is empty!");    
-
-            return;    
-
-        }    
-
-        System.out.println("Nodes of SLL is:");    
-
-        while(current != null) {    
-
-            //Prints each node by incrementing the pointer    
-
-            System.out.print(current.data + " ");    
-
-            current = current.next;    
-
-        }    
-
-        System.out.println();    
-
-    }    
-
-        
-
-    public static void main(String[] args) {    
-
-            
-
-        SinglyLinkedList sList = new SinglyLinkedList();    
-
-            
-
-        //Add nodes to the list    
-
-        sList.addNode(1);    
-
-        sList.addNode(2);    
-
-        sList.addNode(3);    
-
-        sList.addNode(4);    
-
-            
-
-        //Displays the nodes present in the list    
-
-        sList.display();    
-
-    }    
-
-}    
+    }
+}
